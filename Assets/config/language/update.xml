@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<data>
+	<language id="Update_NewVer" str = "发现新版本"/>
+	<language id="Update_UpdateSize" str = "更新大小"/>
+	<language id="Update_AdviseUseWifi" str = "建议使用wifi进行更新，土豪随意"/>
+</data>

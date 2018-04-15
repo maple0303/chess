@@ -1,4 +1,4 @@
-﻿#define ASSETBUNDLE_ENABLE
+﻿//#define ASSETBUNDLE_ENABLE
 
 using System;
 using System.Collections;

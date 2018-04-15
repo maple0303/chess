@@ -1,0 +1,15 @@
+AssetRelateData|5b20f06b84af1e3f28cae48ad8864bdc|477
+StreamingAssets|749eaa2c70c65a171827fbc5bdebf61a|1644
+StreamingAssets.manifest|2de1b25761e54805ebdecb5ef2e8b690|555
+config/config.unity3d|ad496959d18d572d5e0830363604725f|1166
+config/config.unity3d.manifest|ccd8ee5c6f205390db9863451b80a3f5|339
+config/language.unity3d|ef3878df6344c95e032d3bd3836c15f8|47755
+config/language.unity3d.manifest|d42c5a9083e7720ef32bfc61613cad85|426
+lua/lua_script.unity3d|398d771d273ec8f7d6e939616edb41bb|183680
+lua/lua_script.unity3d.manifest|73c5e5043064c6ff065cf644d8a288dd|3503
+prefabs/ui/confirm.unity3d|77e3df20388ff8c58295fbf4154348d0|9805
+prefabs/ui/confirm.unity3d.manifest|48a29f5513a74702b353759b43978e31|1268
+prefabs/ui/tips.unity3d|c04fe8b5957db8841a54eaeb5c528b79|7826
+prefabs/ui/tips.unity3d.manifest|ecf5088322d792bcf8cee51e43b95dd6|1384
+prefabs/ui/uilogin.unity3d|4f558d8f65f1ad9788fb7a74b6bb9c24|3483875
+prefabs/ui/uilogin.unity3d.manifest|0b2d6241d3f6d09cb83eb7c3be527f78|1145

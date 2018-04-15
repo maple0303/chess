@@ -97,9 +97,10 @@ function LuaCUIUpdateConfirm.ShowUI()
             m_gameObject.transform:SetParent(uiCanvas.transform, false);
         end
     else
-        m_gameObject:SetActive(true);
-        m_gameObject.transform:SetAsLastSibling();
+
     end
+    m_gameObject:SetActive(true);
+    m_gameObject.transform:SetAsLastSibling();
 end
 
 function LuaCUIUpdateConfirm.HideUI()

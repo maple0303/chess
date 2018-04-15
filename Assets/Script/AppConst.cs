@@ -17,7 +17,7 @@ public class AppConst
     /// </summary>
     public const bool ResourceBundleMode = false;                       //资源AssetBundle模式模式 若为true,打包资源时会把设置好的资源打包成budnle 
 
-    public static bool UpdateMode = false;                       //使用热更模式-默认关闭
+    public static bool UpdateMode = true;                       //使用热更模式-默认关闭
 	public const bool LuaByteMode = true;                       //Lua字节码模式-默认关闭 
     public const string LuaTempDir = "Lua/";                    //代码打bundle时的临时目录
     public const string ExtName = ".unity3d";                   //素材扩展名

@@ -46,7 +46,6 @@ function LuaCUpdate.Init()
     this.LoadConfig();
     this.CheckUpdate();
 end
-
 function LuaCUpdate.LoadConfig()
     --加载语言配置
     m_languageDic = {};
@@ -108,7 +107,6 @@ function LuaCUpdate.OnRequestVer()
     local url = "http://" .. m_updateUrl .. "/upgrade/ver.txt?p=" .. math.random(1, 100000000);
     m_www = UnityEngine.WWW(url);
     coroutine.www(m_www);
-
     if(m_www.error == nil) then
         --解析版本数据
         local str = CLuaFunction.ConvertBytesToString(m_www.bytes);
@@ -185,9 +183,9 @@ function LuaCUpdate.OnRequestUpdateTypeSize()
         LuaCUIUpdateConfirm.ShowConfirm(this.GetLanguageText("Update_RequestUpdateDataFail"), "", this.RequestUpdateTypeSize, Application.Quit);
     end
     coroutine.step();
-
     local type = m_arrUpdateType[m_nCurVer];
-    if (m_bShowUpdatePrompt) then --是否需要显示更新提示
+    if (m_bShowUpdatePrompt)
+    then --是否需要显示更新提示
         local strTips = this.GetLanguageText("Update_NewVer");
         strTips = (strTips .. ("\n" .. this.GetLanguageText("Update_UpdateSize")));
         if ((m_nTotalDownloadSize / 1024 / 1024) > 1) then
@@ -403,7 +401,7 @@ function LuaCUpdate.Finish()
     end
 
     LuaGame.RemovePerFrameFunc("LuaCUpdate.Update", LuaCUpdate.Update);
-    LuaCUIUpdate.HideUI();
+    --LuaCUIUpdate.HideUI();
     LuaGame.Init();
 end
 
