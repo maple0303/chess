@@ -3,7 +3,6 @@
 public static class LuaConst
 {
 	public static string luaDir = Application.dataPath + "/Script/Lua";
-    public static string luaEncoderDir = Application.dataPath + "/StreamingAssets/lua";  // 加密的lua路径
     public static string toluaDir = Application.dataPath + "/ToLua/Lua";        //tolua lua文件目录
 
 #if UNITY_STANDALONE

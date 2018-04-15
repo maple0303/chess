@@ -6,7 +6,6 @@ public class LuaManager
 {
     private static LuaManager instance = null;
     private LuaState lua;
-    private LuaLoader loader;
 
     public static LuaManager GetInstance()
     {
@@ -19,9 +18,7 @@ public class LuaManager
     }
     void Initialization()
     {
-        //new LuaResLoader();
         instance = this;
-        loader = new LuaLoader();
         lua = new LuaState();
        
         DelegateFactory.Init();
@@ -30,8 +27,7 @@ public class LuaManager
 
         LuaBinder.Bind(lua);
 
-        //InitLuaPath();
-        //InitLuaBundle();
+        InitLuaPath();
         this.lua.Start();    //启动LUAVM
 
         GameObject luaGameObject = new GameObject("LuaManger");
@@ -78,56 +74,9 @@ public class LuaManager
     /// </summary>
     void InitLuaPath()
     {
-#if !UNITY_EDITOR
-            // lua.AddSearchPath(AppConst.DataPath + "LuaScript");
-           // lua.AddSearchPath(AppConst.DataPath + "ToLua");
-		string resPath = "";
-		switch (Application.platform)
-		{
-		case RuntimePlatform.Android:
-		resPath = "jar:file://" + Application.dataPath + "!/assets/";
-		break;
-		case RuntimePlatform.IPhonePlayer:
-		resPath = Application.dataPath + "/Raw/";
-		break;
-		default:
-		resPath = Application.dataPath + "/StreamingAssets/";
-		break;
-		}
-		Debug.Log (resPath);
-		lua.AddSearchPath(resPath + "Script/Lua");
-		lua.AddSearchPath(resPath + "ToLua");
+#if UNITY_EDITOR
+        lua.AddSearchPath(LuaConst.luaDir);
 #endif
-
-    }
-
-    /// <summary>
-    /// 初始化LuaBundle
-    /// </summary>
-    void InitLuaBundle()
-    {
-        string streamDir = AppConst.DataPath + "lua";
-        //Debug.Log("文件路径" + streamDir);
-        //Debug.Log("路径存在" + Directory.Exists(streamDir));
-        //Debug.Log("persistentDataPath" + Application.persistentDataPath);
-        //Debug.Log("streamingAssetsPath" + Application.streamingAssetsPath);
-        loader.AddBundle("lua/lua_message.unity3d");
-        loader.AddBundle("lua/lua_script.unity3d");
-        loader.AddBundle("lua/lua_template.unity3d");
-        //Debug.Log("lua代码加载完成");
-        //if(Directory.Exists(streamDir))
-        //{
-            //string[] files = Directory.GetFiles(streamDir, "*.unity3d", SearchOption.AllDirectories);
-            //Debug.Log("得到的文件长度" + files.Length);
-            //for (int i = 0; i < files.Length; i++ )
-            //{
-                //files[i] = files[i].Replace("\\", "/");
-                //Debug.Log("文件名字" + files[i]);
-                //string [] file = files[i].Split('/');
-                //Debug.Log("文件长度" + file.Length);
-                //loader.AddBundle("lua/" + file[file.Length - 1]);
-            //}
-        //}
     }
 
     public LuaState GetLuaState()
@@ -167,6 +116,5 @@ public class LuaManager
     {
         lua.Dispose();
         lua = null;
-        loader = null;
     }
 }

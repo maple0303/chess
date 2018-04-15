@@ -1,0 +1,6 @@
+assets/config/updateconfig.xml|config/config.unity3d
+assets/config/language/errorcode.xml,assets/config/language/lang_tpl.xml,assets/config/language/languagedata.xml|config/language.unity3d
+assets/prefabs/ui/confirm/confirmpanel.prefab|prefabs/ui/confirm.unity3d
+assets/prefabs/ui/tips/battips.prefab,assets/prefabs/ui/tips/flytips.prefab|prefabs/ui/tips.unity3d
+assets/prefabs/ui/uilogin.prefab,assets/textures/ui/uilogin.png|prefabs/ui/uilogin.unity3d
+|lua/lua_script.unity3d

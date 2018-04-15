@@ -155,25 +155,7 @@ namespace LuaInterface
 
         public virtual byte[] ReadFile(string fileName)
         {
-                string path = FindFile(fileName);
-                byte[] str = null;
-
-                if (!string.IsNullOrEmpty(path) && File.Exists(path))
-                {
-#if !UNITY_WEBPLAYER
-                    str = File.ReadAllBytes(path);
-#else
-                    throw new LuaException("can't run in web platform, please switch to other platform");
-#endif
-                }
-                if (str != null)
-                {
-                    return str;
-                }
-                else
-                {
-                    return ReadZipFile(fileName);
-                }
+            return CAssetManager.GetLuaScript(fileName);
         }        
 
         public virtual string FindFileError(string fileName)
@@ -219,79 +201,6 @@ namespace LuaInterface
                 return sb.ToString();
             }
         }
-
-        byte[] ReadZipFile(string fileName)
-        {
-            AssetBundle zipFile = null;
-            byte[] buffer = null;
-            string zipName = null;
-
-            using (CString.Block())
-            {
-                //CString sb = CString.Alloc(256);
-                //sb.Append("lua");
-                //int pos = fileName.LastIndexOf('/');
-
-                //if (pos > 0)
-                //{
-                //    sb.Append("_");
-                //    sb.Append(fileName, 0, pos).ToLower().Replace('/', '_');
-                //    fileName = fileName.Substring(pos + 1);
-                //}
-
-                //if (!fileName.EndsWith(".lua"))
-                //{
-                //    fileName += ".lua";
-                //}
-                CString sb = CString.Alloc(256);
-                sb.Append("lua_");
-                if (fileName.IndexOf("message/") != -1)
-                {
-                    sb.Append("message");
-                }
-                else if (fileName.IndexOf("Template/") != -1)
-                {
-                    sb.Append("template");
-                }
-                else
-                {
-                    sb.Append("script");
-                }
-                int pos = fileName.LastIndexOf('/');
-                if (pos > 0)
-                {
-                    fileName = fileName.Substring(pos + 1);
-                }
-                if (!fileName.EndsWith(".lua"))
-                {
-                    fileName += ".lua";
-                }
-
-#if UNITY_5 || UNITY_2017
-                fileName += ".bytes";
-#endif
-                zipName = sb.ToString();
-                zipMap.TryGetValue(zipName, out zipFile);
-            }            
-
-            if (zipFile != null)
-            {
-#if UNITY_5 || UNITY_2017
-                TextAsset luaCode = zipFile.LoadAsset<TextAsset>(fileName);
-#else
-                TextAsset luaCode = zipFile.Load(fileName, typeof(TextAsset)) as TextAsset;
-#endif
-
-                if (luaCode != null)
-                {
-                    buffer = luaCode.bytes;
-                    Resources.UnloadAsset(luaCode);
-                }
-            }
-
-            return buffer;
-        }
-
         public static string GetOSDir()
         {
             return LuaConst.osDir;

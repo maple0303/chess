@@ -180,21 +180,12 @@ namespace LuaInterface
             //if (!LuaFileUtils.Instance.beZip)
             //{
 #if UNITY_EDITOR
-                if (!Directory.Exists(LuaConst.luaDir) && !Directory.Exists(LuaConst.luaEncoderDir))
-                {
-                    string msg = string.Format("luaDir path not exists: {0}, configer it in LuaConst.cs", LuaConst.luaDir);
-                    throw new LuaException(msg);
-                }
-
                 if (!Directory.Exists(LuaConst.toluaDir))
                 {
                     string msg = string.Format("toluaDir path not exists: {0}, configer it in LuaConst.cs", LuaConst.toluaDir);
                     throw new LuaException(msg);
                 }
-
                 AddSearchPath(LuaConst.toluaDir);
-                AddSearchPath(LuaConst.luaDir);
-                //AddSearchPath(LuaConst.luaEncoderDir);
 #endif
                 if (LuaFileUtils.Instance.GetType() == typeof(LuaFileUtils))
                 {

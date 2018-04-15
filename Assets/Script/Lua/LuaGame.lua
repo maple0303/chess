@@ -4,7 +4,7 @@ require "UI/Login/LuaCUILoginGame";
 --require "Utils/LuaDataStatic";
 require "Utils/LuaCommonMethod";
 require "LuaGameLogin";
---require "UI/Tips/LuaCUIFlyTips";
+require "UI/Tips/LuaCUIFlyTips";
 --require "UI/confirm/LuaCUIConfirm";
 --require "Logic/CoreModule/LuaCCoreModule";
 require "Utils/LuaLocalDataStorage";
@@ -31,29 +31,27 @@ local m_nLastSecondTime = 0; -- 上一秒的时间
 
 function LuaGame.Start()
     -- 注册每帧更新函数
-    UpdateBeat:Add(LuaGame.OnFrameUpdate, self); 
+    UpdateBeat:Add(LuaGame.OnFrameUpdate, self);
     m_nLastFrameTime = UnityEngine.Time.time * 1000;
-    
-    -- 找到主相机，设置成永久保留
-    local mainCamera = UnityEngine.GameObject.Find("Main Camera");
-    if(mainCamera ~= nil) then
-         UnityEngine.Object.DontDestroyOnLoad(mainCamera);
+
+    if(AppConst.UpdateMode) then
+        require "UI/Update/LuaCUIUpdateConfirm";
+        require "Game/LuaCUpdate";
+        LuaCUpdate.Init();
+    else
+        LuaGame.Init();
     end
-    local UICamera = UnityEngine.GameObject.Find("Canvas");
-    if(UICamera ~= nil) then
-         UnityEngine.Object.DontDestroyOnLoad(UICamera);
-    end
-    local eventSystem = UnityEngine.GameObject.Find("EventSystem");
-    if(eventSystem ~= nil) then
-         UnityEngine.Object.DontDestroyOnLoad(eventSystem);
-    end
+end
+
+function LuaGame.Init()
+    require "Game/LuaCGameConfig";
+    -- 设置配置文件读取
+    LuaCGameConfig.Init();
     -- 初始化语言数据
     CLanguageData.Initialize();
     -- 初始化登录模块
-    --log("LuaGame 初始化登录模块")
+    require "LuaGameLogin";
     LuaGameLogin.Init();
-    -- 设置配置文件读取
-    LuaCGameConfig.Init();
 end
 --每帧执行一次
 function LuaGame.OnFrameUpdate()
@@ -124,11 +122,20 @@ function LuaGame.RemovePerSecondFunc(name)
     --m_arrPerSecondFunc[name] = nil;
     table.insert(m_arrDelPerSecondFunc, name);
 end
--- 游戏销毁处理函数
-function LuaGame.Destroy()
-    log("game destroy");
-    if(LuaCLogicManager ~= nil) then
-        LuaCLogicManager.Destroy();
+-- 清空游戏数据
+function LuaGame.ClearData()
+     -- 清理logic数据
+    LuaCLogicManager.Destroy();
+    -- 清理实体管理器
+    if(LuaEntityManager ~= nil) then
+        LuaEntityManager.Destroy();
+    end
+    LuaCUIManager.CloseAllUI();
+    if (LuaCMapModule.IsInActivityAnswerMap()) then
+        LuaCUIActivityAnswerCountdown.HideUI();
+    end
+    if(LuaCBattleManager ~= nil) then
+        LuaCBattleManager.Destroy();
     end
     m_arrPerFrameFunc = {};
     m_arrAddPreFrameFunc = {};
@@ -137,21 +144,11 @@ function LuaGame.Destroy()
     m_arrAddPerSecondFunc = {};
     m_arrDelPerSecondFunc = {};
 end
-
-function LoadResAsync(url, callBack)
-    local GameMain = UnityEngine.GameObject.Find("GameMain");
-    local assetManager = GameMain:GetComponent("CAssetManager");
-    assetManager:LoadResAsync(url, callBack, false);
-end
-
-function ExeCoroutineTask(startFunc, callBack, params)
-    local GameMain = UnityEngine.GameObject.Find("GameMain");
-    local assetManager = GameMain:GetComponent("CAssetManager");
-    assetManager:ExeCoroutineTask(startFunc, callBack, params);
-end
-
-function GetAssetSpriteAsync(url, strAssetAtlas, callBack)
-    local GameMain = UnityEngine.GameObject.Find("GameMain");
-    local assetManager = GameMain:GetComponent("CAssetManager");
-    assetManager:GetAssetSpriteAsync(url, strAssetAtlas, callBack);
+-- 游戏销毁处理函数
+function LuaGame.Destroy()
+    log("game destroy");
+    -- 清理logic数据
+    if(LuaCLogicManager ~= nil) then
+        LuaCLogicManager.Destroy();
+    end
 end

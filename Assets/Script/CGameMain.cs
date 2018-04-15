@@ -75,7 +75,6 @@ public class CGameMain : MonoBehaviour
 
     void OnInitialize()
     {
-        //ResourceManager.GetInstance().Initialize();
         //Debug.Log("CGameMain:初始化开始啦");
         LuaState lua = LuaManager.GetInstance().GetLuaState();
         lua.Require("LuaGame");  // 加载lua文件

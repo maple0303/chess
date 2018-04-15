@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 3622008414
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: lua/lua_script.unity3d
+      Dependencies: {}
+    Info_1:
+      Name: prefabs/ui/confirm.unity3d
+      Dependencies:
+        Dependency_0: prefabs/ui/uilogin.unity3d
+    Info_2:
+      Name: prefabs/ui/tips.unity3d
+      Dependencies: {}
+    Info_3:
+      Name: prefabs/ui/uilogin.unity3d
+      Dependencies: {}
+    Info_4:
+      Name: config/language.unity3d
+      Dependencies: {}
+    Info_5:
+      Name: config/config.unity3d
+      Dependencies: {}

@@ -1,5 +1,4 @@
-require "UI/LuaCUIServerList";
-LuaCUILoginGame = { 
+LuaCUILoginGame = {
 }
 local this = LuaCUILoginGame
 local m_gameObject = nil
@@ -13,7 +12,7 @@ function LuaCUILoginGame.Start()
 	if(m_gameObject == nil) then 
 		return 
 	end
-	local loginbtn = m_gameObject.transform:FindChild("btnLogin") 
+	local loginbtn = m_gameObject.transform:FindChild("btn_login")
 	if(loginbtn ~= nil) then 
 		local loginComponent = loginbtn:GetComponent("Button") 
 		if(loginComponent ~= nil) then 
@@ -23,23 +22,20 @@ function LuaCUILoginGame.Start()
 	this.UpdatePanel()
 end
 function LuaCUILoginGame.OnClickLoginBtn()
-	
-    local input = m_gameObject.transform:FindChild("InputField");
-    if (input == nil) then
-        return;
-    end
-    local fieldInput = input:GetComponent("InputField");
-    if (fieldInput == nil) 
-    then
-        return;
-    end
---    if(fieldInput.text == "")
---    then
---        LuaCUIFlyTips.ShowFlyTips(CLanguageData.GetLanguageText("UI_Login_Account_Cannot_Empty"));
---    else  
-        LuaCUILoginGame.HideUI();
-        LuaGameLogin.ShowUIServerList(fieldInput.text);
---    end
+	local agreeToggle = m_gameObject.transform:FindChild("toggle_agree");
+	if(agreeToggle ~= nil)
+	then
+		local toggleComponent = agreeToggle:GetComponent("Toggle");
+		if(toggleComponent ~= nil)
+		then
+			if(toggleComponent.isOn)
+			then
+
+			else
+				LuaCUIFlyTips.ShowFlyTips(CLanguageData.GetLanguageText("UI_Login_Must_Agree"));
+			end
+		end
+	end
 end
 function LuaCUILoginGame.ShowUI()
 	if(m_gameObject == nil) then

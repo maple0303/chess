@@ -1,4 +1,4 @@
-﻿//#define ASSETBUNDLE_ENABLE
+﻿#define ASSETBUNDLE_ENABLE
 
 using System;
 using System.Collections;
@@ -8,6 +8,7 @@ using System.IO;
 using UnityEditor;
 #endif
 using UnityEngine;
+using LuaInterface;
 public class CAssetManager : MonoBehaviour
 {
     private class AssetBundleData
@@ -19,7 +20,7 @@ public class CAssetManager : MonoBehaviour
 
     private static CAssetManager m_assetManager = null;
 
-    //所有bundle的路径和对应bundle的ID关联信息,  key:资源路径, value:bundle的ID
+    //所有bundle的路径和对应bundle的ID关联信息,  key:资源路径, value:bundle名
     static private Dictionary<string, string> dictAbName = new Dictionary<string, string>();
 
     //存储所有的bundle， key:bundle的ID
@@ -40,7 +41,6 @@ public class CAssetManager : MonoBehaviour
     void Awake()
     {
         m_assetManager = this;
-//#if !UNITY_EDITOR || ASSETBUNDLE_ENABLE
         dictAbName = new Dictionary<string, string>();
         m_dicAssetBundle = new Dictionary<string, AssetBundleData>();
 
@@ -129,6 +129,19 @@ public class CAssetManager : MonoBehaviour
     //加载lua文件
     public static byte[] GetLuaScript(string fileName)
     {
+#if UNITY_EDITOR && !ASSETBUNDLE_ENABLE
+        string path = LuaFileUtils.Instance.FindFile(fileName);
+        byte[] str = null;
+
+        if (!string.IsNullOrEmpty(path) && File.Exists(path))
+        {
+            str = File.ReadAllBytes(path);
+        }
+        if (str != null)
+        {
+            return str;
+        }
+#endif
         AssetBundle assetBundle = null;
         byte[] buffer = null;
 

@@ -1,4 +1,4 @@
-﻿//#define USING_DOTWEENING
+﻿#define USING_DOTWEENING
 
 using UnityEngine;
 using System;
@@ -231,7 +231,6 @@ public static class CustomSettings
         _GT(typeof(CNetManager)),
         _GT(typeof(CLanguageData)),
         _GT(typeof(CLuaTableBehaviour)),
-        _GT(typeof(ResourceManager)),
         _GT(typeof(EmDirection)),
         _GT(typeof(CRoleSprite)),
         _GT(typeof(CCameraFollow)),

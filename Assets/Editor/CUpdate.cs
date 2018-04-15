@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 public class CUpdate : EditorWindow
 {
-    static private string mLocalCacheUrl = "C:/Users/Administrator/Desktop/tmp.txt";
+    static private string mLocalCacheUrl = "";      //"C:/Users/Administrator/Desktop/tmp.txt";
     static private string mScanUrl = "C:/Users/Administrator/Desktop/Temp/";        //扫描目录
     static private Dictionary<string, string[]> mCurFileDic = new Dictionary<string, string[]>();       //游戏资源所有文件列表
     static private Dictionary<string, string[]> dicCurDiffFiles = new Dictionary<string, string[]>();   //更新文件，差异列表
@@ -29,9 +29,15 @@ public class CUpdate : EditorWindow
 
     void OnGUI()
     {
+        mLocalCacheUrl = Application.temporaryCachePath + "VersionPath.txt";
+
         if (File.Exists(mLocalCacheUrl))
         {
             mScanUrl = File.ReadAllText(mLocalCacheUrl);
+        }
+        if (!Directory.Exists(mScanUrl))
+        {
+            mScanUrl = "";
         }
 
         EditorGUILayout.BeginVertical();

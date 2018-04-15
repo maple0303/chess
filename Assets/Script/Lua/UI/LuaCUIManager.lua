@@ -66,6 +66,7 @@
 --require "UI/HeartMagic/LuaCUIWisdomExchange"
 --require "UI/LuaCUIPowerChange"
 --require "UI/Tips/LuaCUIHeartTips"
+require "UI/Tips/LuaCUIFlyTips";
 
 
 LuaCUIManager = {};
